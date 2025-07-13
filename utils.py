@@ -3,7 +3,7 @@ import googlemaps
 import numpy as np
 
 
-def get_Maps_matrices(patient_coords, depot_coords, api_key=None):
+def get_Maps_matrices(patient_coords, depot_coords, api_key=None, traffic_mode='F'):
     """
     Calculates distance and time matrices between patient homes and depots 
     using the Google Maps Distance Matrix API.
@@ -11,8 +11,7 @@ def get_Maps_matrices(patient_coords, depot_coords, api_key=None):
     Args:
         patient_coords (list): A list of patient coordinates, e.g., [[lat1, lng1], ...].
         depot_coords (list): A list of depot coordinates, e.g., [[lat_A, lng_A], ...].
-        api_key (str, optional): Your Google Maps API key. If None, it tries to read 
-                                 from the 'GMAPS_API_KEY' environment variable.
+        api_key (str, optional): Your Google Maps API key.
 
     Returns:
         tuple: A tuple of (distance_matrix, time_matrix) in numpy arrays.
@@ -43,7 +42,7 @@ def get_Maps_matrices(patient_coords, depot_coords, api_key=None):
                     distance_matrix[i, j] = element['distance']['value'] / 1000.0
                     time_matrix[i, j] = element['duration']['value'] / 60.0
                 else:
-                    distance_matrix[i, j] = -1  # Use -1 to indicate no route found
+                    distance_matrix[i, j] = -1 
                     time_matrix[i, j] = -1
         
         return distance_matrix, time_matrix
@@ -56,15 +55,11 @@ def get_Maps_matrices(patient_coords, depot_coords, api_key=None):
 
 # --- Post-processing, Plot, and Analysis Functions ---
 
-
-
 if __name__ == '__main__':
     print("--- Testing get_Maps_matrices function ---")
     
-    # IMPORTANT: Replace with your key or set it as an environment variable
-    MY_API_KEY = "AIzaSyAd0ZBfbXuXqfxlRYGtkbPJJ6w1RxdUc-A"#YOUR_API_KEY_HERE" 
+    MY_API_KEY = "YOUR_API_KEY_HERE" 
 
-    # Sample data
     test_patients = [[40.7484, -73.9857], [40.7580, -73.9855]]
     test_depots = [[40.7628, -73.9680]]
 
