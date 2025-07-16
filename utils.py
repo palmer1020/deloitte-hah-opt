@@ -100,7 +100,6 @@ if __name__ == '__main__':
         time_matrix = load_matrix(time_matrix_file)
     else:
         print("Matrices not found locally. Calculating via Google Maps API...")
-        # --- The function call is now cleaner ---
         distance_matrix, time_matrix = get_unified_distance_time_matrix(
             patient_coords=test_patients, 
             depot_coords=test_depots, 
